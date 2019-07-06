@@ -22,159 +22,159 @@ public class PasswordServiceTest {
     public static void getServiceFromIOC() {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
         passwordService = ctx.getBean(PasswordService.class);
-    }
+    } 
 
     @Test
     public void testContainsOnlyLowercaseLetters() {
-        // assert
+        // set
         Set<String> result = passwordService.validate("abcde");
 
-        // verify
+        // assert
         assertFalse(result.contains(ERROR_PASSWORD_CASE));
     }
 
     @Test
     public void testContainsUppercaseLetters() {
-        // assert
+        // set
         Set<String> result = passwordService.validate("Abcde");
 
-        // verify
+        // assert
         assertTrue(result.contains(ERROR_PASSWORD_CASE));
     }
 
     @Test
     public void testContainsBothLetterAndDigit() {
-        // assert
+        // set
         Set<String> result = passwordService.validate("a0");
 
-        // verify
+        // assert
         assertFalse(result.contains(ERROR_LETTER_AND_DIGIT));
     }
 
     @Test
     public void testContainsBothDigitAndLetter() {
-        // assert
+        // set
         Set<String> result = passwordService.validate("0a");
 
-        // verify
+        // assert
         assertFalse(result.contains(ERROR_LETTER_AND_DIGIT));
     }
 
     @Test
     public void testContainsOnlyLetters() {
-        // assert
+        // set
         Set<String> result = passwordService.validate("a");
 
-        // verify
+        // assert
         assertThat(result, hasItem(ERROR_LETTER_AND_DIGIT));
     }
 
     @Test
     public void testContainsOnlyDigits() {
-        // assert
+        // set
         Set<String> result = passwordService.validate("0");
 
-        // verify
+        // assert
         assertThat(result, hasItem(ERROR_LETTER_AND_DIGIT));
     }
 
     @Test
     public void testSize5orMore() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("Prabha Srinivasan  1");
 
-        // verify
+        // assert
         assertThat(result, hasItem(ERROR_PASSWORD_LENGTH));
     }
 
     @Test
     public void testSizeLessThan5() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("Pr 2");
 
-        // verify
+        // assert
         assertTrue(result.contains(ERROR_PASSWORD_LENGTH));
     }
 
     @Test
     public void testSize12orLess() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("123456789112");
 
-        // verify
+        // assert
         assertFalse(result.contains(ERROR_PASSWORD_LENGTH));
     }
 
     @Test
     public void testSizeMoreThan12() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("1234567891123");
 
-        // verify
+        // assert
         assertThat(result, hasItem(ERROR_PASSWORD_LENGTH));
     }
 
     @Test
     public void testSequenceNotViolated() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("abcde12345");
 
-        // verify
+        // assert
         assertFalse(result.contains(ERROR_PASSWORD_SEQUENCE_REPEATED));
     }
 
     @Test
     public void testSequenceRepeatLetters() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("abab");
 
-        // verify
+        // assert
         assertThat(result, hasItem(ERROR_PASSWORD_SEQUENCE_REPEATED));
     }
 
     @Test
     public void testSequenceRepeatSingleLetter() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("aa");
 
-        // verify
+        // assert
         assertFalse(result.contains(ERROR_PASSWORD_SEQUENCE_REPEATED));
     }
 
     @Test
     public void testSequenceRepeatLettersAndDigits() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("ab1ab1");
 
-        // verify
+        // assert
         assertThat(result, hasItem(ERROR_PASSWORD_SEQUENCE_REPEATED));
     }
 
     @Test
     public void testSequenceRepeatLettersNotAtFront() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("prefixabab");
 
-        // verify
+        // assert
         assertThat(result, hasItem(ERROR_PASSWORD_SEQUENCE_REPEATED));
     }
 
     @Test
     public void testSequenceRepeatLettersNotAtBack() {
 
-        // assert
+        // set
         Set<String> result = passwordService.validate("ababpostfix");
 
-        // verify
+        // assert
         assertTrue(result.contains(ERROR_PASSWORD_SEQUENCE_REPEATED));
     }
 
