@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class PasswordService {
 
     public static final String ERROR_PASSWORD_LENGTH = "Password must be between 5 and 12 characters long.";
