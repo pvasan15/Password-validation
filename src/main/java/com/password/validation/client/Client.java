@@ -10,8 +10,8 @@ import com.password.validation.service.PasswordService;
 
 public class Client {
 
-	@Autowired
-	private PasswordService passwordService;
+    @Autowired
+    private PasswordService passwordService;
 	
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
