@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import static com.password.validation.service.PasswordService.ERROR_LETTER_AND_DIGIT;
 import static com.password.validation.service.PasswordService.ERROR_PASSWORD_CASE;
 import static com.password.validation.service.PasswordService.ERROR_PASSWORD_LENGTH;
@@ -8,21 +10,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertFalse;
 import java.util.Set;
-import org.junit.BeforeClass;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.password.validation.config.AppConfig;
 import com.password.validation.service.PasswordService;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = AppConfig.class)
 public class PasswordServiceTest {
-    private static PasswordService passwordService;
-
-    @BeforeClass
-    public static void getServiceFromIOC() {
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        passwordService = ctx.getBean(PasswordService.class);
-    } 
+    
+    @Autowired
+    private PasswordService passwordService;
 
     @Test
     public void testContainsOnlyLowercaseLetters() {
@@ -176,7 +176,7 @@ public class PasswordServiceTest {
 
         // assert
         assertTrue(result.contains(ERROR_PASSWORD_SEQUENCE_REPEATED));
-    }
+    } 
 
 }
 
