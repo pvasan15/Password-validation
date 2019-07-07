@@ -15,7 +15,7 @@ public class Client {
     @Autowired
     public void setPasswordService(PasswordService passwordService) {
         this.passwordService = passwordService;
-    }
+    } 
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -31,6 +31,7 @@ public class Client {
         for (String error : errors) {
             System.out.println(error);
         }
+        ctx.close();
     }
 
     public Set<String> validatePassword(String password) {
