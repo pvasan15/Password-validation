@@ -10,13 +10,9 @@ import com.password.validation.service.PasswordService;
 
 public class Client {
 
-    private PasswordService passwordService;
-
-    @Autowired
-    public void setPasswordService(PasswordService passwordService) {
-        this.passwordService = passwordService;
-    } 
-
+	@Autowired
+	private PasswordService passwordService;
+	
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
         Client client = ctx.getBean(Client.class);
